@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace AndreasHGK\Emotes\listener;
 
 use AndreasHGK\Emotes\emote\Emote;
+use AndreasHGK\Emotes\emote\EmoteIds;
 use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\network\mcpe\protocol\EmotePacket;
 

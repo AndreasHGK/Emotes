@@ -22,6 +22,18 @@ class Emote {
         return new self($sender, $emotePacket->getEmoteId(), $emotePacket->getFlags());
     }
 
+    /**
+     * Create an Emote object
+     *
+     * @param Player $player the player that is performing the emote
+     * @param string $emoteId the ID of the emote
+     * @param int $flags modify the behaviour of the emote
+     * @return static
+     */
+    public static function create(Player $player, string $emoteId, int $flags = 0) : self {
+        return new self($player, $emoteId, $flags);
+    }
+
     /** @var Player */
     private $player;
     /** @var string */
@@ -41,11 +53,12 @@ class Emote {
      * @return EmotePacket
      */
     public function asPacket() : EmotePacket {
-        return EmotePacket::create($this->getEntityId(), $this->getEmoteId(), $this->flags);
+        return EmotePacket::create($this->getEntityId(), $this->getEmoteId(), $this->getFlags());
     }
 
     /**
      * Get the entity ID of the player that is doing the Emote
+     * @see EmoteIds
      *
      * @return int
      */
@@ -114,7 +127,6 @@ class Emote {
 
     /**
      * Broadcast the packet to a list of players, or in the world of a player
-     * The sender will be automatically ignored
      *
      * @param Player[] $players the players you want to broadcast the packet to
      * @param bool $silent whether or not to call an event for the emote
@@ -131,7 +143,6 @@ class Emote {
 
         $packet = $emote->asPacket();
         foreach($players as $player) {
-            if($players === $emote->getPlayer()) continue;
             $player->getNetworkSession()->sendDataPacket($packet);
         }
     }
