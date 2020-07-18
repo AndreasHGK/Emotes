@@ -133,7 +133,7 @@ class Emote {
      */
     public function broadcast(array $players = [], bool $silent = false) : void {
         if(empty($players)) {
-            $players = $this->player->getWorld()->getPlayers();
+            $players = $this->player->getViewers();
         }
 
         $event = new PlayerEmoteEvent($this);
