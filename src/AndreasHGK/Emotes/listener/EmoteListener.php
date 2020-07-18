@@ -21,7 +21,7 @@ class EmoteListener implements Listener {
     public function onEmote(DataPacketReceiveEvent $event) : void {
         $packet = $event->getPacket();
         if(!$packet instanceof EmotePacket) return;
-        $player = $event->getOrigin()->getPlayer();
+        $player = $event->getPlayer();
 
         $emote = Emote::fromPacket($player, $packet);
         if(!$emote->canUse()) return;

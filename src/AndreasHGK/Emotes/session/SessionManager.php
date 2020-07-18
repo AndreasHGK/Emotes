@@ -4,12 +4,20 @@ declare(strict_types=1);
 
 namespace AndreasHGK\Emotes\session;
 
-use pocketmine\player\Player;
-use pocketmine\utils\SingletonTrait;
+use pocketmine\Player;
 
 class SessionManager {
 
-    use SingletonTrait;
+    /** @var self */
+    private static $instance;
+
+    /**
+     * @return $this
+     */
+    public static function getInstance() : self {
+        if(!isset(self::$instance)) self::$instance = new self;
+        return self::$instance;
+    }
 
     /** @var Session[] */
     private $sessions = [];

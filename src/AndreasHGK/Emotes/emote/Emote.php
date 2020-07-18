@@ -7,7 +7,7 @@ namespace AndreasHGK\Emotes\emote;
 use AndreasHGK\Emotes\event\PlayerEmoteEvent;
 use AndreasHGK\Emotes\session\SessionManager;
 use pocketmine\network\mcpe\protocol\EmotePacket;
-use pocketmine\player\Player;
+use pocketmine\Player;
 
 class Emote {
 
@@ -133,7 +133,7 @@ class Emote {
      */
     public function broadcast(array $players = [], bool $silent = false) : void {
         if(empty($players)) {
-            $players = $this->player->getWorld()->getPlayers();
+            $players = $this->player->getLevel()->getPlayers();
         }
 
         $event = new PlayerEmoteEvent($this);
@@ -143,7 +143,7 @@ class Emote {
 
         $packet = $emote->asPacket();
         foreach($players as $player) {
-            $player->getNetworkSession()->sendDataPacket($packet);
+            $player->sendDataPacket($packet);
         }
     }
 

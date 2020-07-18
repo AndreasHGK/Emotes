@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AndreasHGK\Emotes\session;
 
-use pocketmine\player\Player;
+use pocketmine\Player;
 
 class Session {
 

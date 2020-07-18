@@ -40,7 +40,7 @@ class SessionListener implements Listener {
     public function onEmoteList(DataPacketReceiveEvent $event) : void {
         $packet = $event->getPacket();
         if(!$packet instanceof EmoteListPacket) return;
-        $player = $event->getOrigin()->getPlayer();
+        $player = $event->getPlayer();
         $session = $this->sessionManager->getSession($player);
 
         $emotes = [];
