@@ -1,0 +1,8 @@
+---
+name: Emotes
+author: AndreasHGK
+description: A plugin that implements emotes into pocketmine
+version: 1.0.0
+main: AndreasHGK\Emotes\Emotes
+api: 4.0.0
+...
