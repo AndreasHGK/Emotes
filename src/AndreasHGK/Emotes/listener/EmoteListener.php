@@ -40,12 +40,15 @@ class EmoteListener implements Listener {
             $player->sendMessage($this->plugin->getPermissionMessage());
             return;
         }
+        if(!$session->hasEmote($packet->getEmoteId())) {
+            return; //this should usually not happen unless the EmoteListPacket (or EmotePacket) was modified
+        }
         if($session->hasActiveCooldown()) {
             $player->sendMessage(sprintf($this->plugin->getCooldownMessage(), $session->getRemainingCooldown()));
             return;
         }
+
         $emote = Emote::fromPacket($player, $packet);
-        if(!$emote->canUse()) return;
         $emote->broadcast();
         $session->updateLastEmoteTime();
     }

@@ -114,18 +114,6 @@ class Emote {
     }
 
     /**
-     * Check if the sender is able to use the emote
-     * (this checks if they have it set in their emote list)
-     *
-     * @return bool
-     */
-    public function canUse() : bool {
-        $sessionManager = SessionManager::getInstance();
-        if(!$sessionManager->hasSession($this->getPlayer())) return true; //if for some reason the session is not there
-        return SessionManager::getInstance()->getSession($this->getPlayer())->hasEmote($this->getEmoteId());
-    }
-
-    /**
      * Broadcast the packet to a list of players, or in the world of a player
      *
      * @param Player[] $players the players you want to broadcast the packet to
