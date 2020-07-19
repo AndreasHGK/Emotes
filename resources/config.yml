@@ -1,0 +1,11 @@
+# Get the amount of time that players have to wait between emotes in seconds (can be a decimal number)
+cooldown-time: 2
+# The message that will be sent to the player when the emote cooldown is active and they try to perform another emote (change to "" for no message)
+# Use the %f variable to add in the remaining cooldown time
+# If you want to round this variable to 2 decimals, use %.2f
+# The same thing can be done for any amount of decimals, like %.3f for 3 decimal numbers
+cooldown-message: "§cYou cannot perform another emote for another %.2f second(s)."
+
+# The message that will be sent to a player when they try to perform an emote without having the emotes.perform permission
+# The emotes.perform permission is given to players by default. You can use a plugin like PurePerms to deny this permission for certain players.
+permission-message: "§cYou do not have permission to perform emotes."
