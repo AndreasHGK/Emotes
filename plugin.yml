@@ -4,5 +4,5 @@ author: AndreasHGK
 description: A plugin that implements emotes into pocketmine
 version: 1.0.0
 main: AndreasHGK\Emotes\Emotes
-api: 3.0.0
+api: 3.14.0
 ...
