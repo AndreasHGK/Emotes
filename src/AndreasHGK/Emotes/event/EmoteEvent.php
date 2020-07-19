@@ -8,6 +8,7 @@ use AndreasHGK\Emotes\emote\Emote;
 use pocketmine\event\Cancellable;
 use pocketmine\event\CancellableTrait;
 use pocketmine\event\Event;
+use pocketmine\player\Player;
 
 class EmoteEvent extends Event implements Cancellable {
 
@@ -15,9 +16,12 @@ class EmoteEvent extends Event implements Cancellable {
 
     /** @var Emote */
     private $emote;
+    /** @var Player[] */
+    private $viewers;
 
-    public function __construct(Emote $emote) {
+    public function __construct(Emote $emote, array $viewers) {
         $this->emote = $emote;
+        $this->viewers = $viewers;
     }
 
     /**
@@ -27,6 +31,24 @@ class EmoteEvent extends Event implements Cancellable {
      */
     public function getEmote() : Emote {
         return $this->emote;
+    }
+
+    /**
+     * Get the players that will see the emote
+     *
+     * @return Player[]
+     */
+    public function getViewers() : array {
+        return $this->viewers;
+    }
+
+    /**
+     * Set the players that will see the emote
+     *
+     * @param array $viewers
+     */
+    public function setViewers(array $viewers) : void {
+        $this->viewers = $viewers;
     }
 
 }
