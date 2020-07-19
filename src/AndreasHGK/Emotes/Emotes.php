@@ -97,7 +97,7 @@ class Emotes extends PluginBase {
             $this->getLogger()->notice("The plugin configuration file has one or more missing values. The plugin will use the default values for the missing options.");
         }
         $config = $this->getConfig();
-        SessionManager::getInstance()->setDefaultCooldown($config->get("cooldown-time", 2));
+        $this->defaultCooldown = $config->get("cooldown-time", 2);
         $this->cooldownMessage = $config->get("cooldown-message", "§cYou cannot perform another emote for another %.2f second(s).");
         $this->permissionMessage = $config->get("permission-message", "§cYou do not have permission to perform emotes.");
     }
