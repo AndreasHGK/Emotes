@@ -6,15 +6,14 @@ namespace AndreasHGK\Emotes\event;
 
 use AndreasHGK\Emotes\emote\Emote;
 use pocketmine\event\Cancellable;
-use pocketmine\event\player\PlayerEvent;
+use pocketmine\event\Event;
 
-class PlayerEmoteEvent extends PlayerEvent implements Cancellable {
+class EmoteEvent extends Event implements Cancellable {
 
     /** @var Emote */
     private $emote;
 
     public function __construct(Emote $emote) {
-        $this->player = $emote->getPlayer();
         $this->emote = $emote;
     }
 

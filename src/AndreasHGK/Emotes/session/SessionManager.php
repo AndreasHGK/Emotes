@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AndreasHGK\Emotes\session;
 
 use pocketmine\Player;
+use AndreasHGK\Emotes\Emotes;
 
 class SessionManager {
 
@@ -21,6 +22,12 @@ class SessionManager {
 
     /** @var Session[] */
     private $sessions = [];
+    /** @var Emotes */
+    private $plugin;
+
+    private function __construct() {
+        $this->plugin = Emotes::getInstance();
+    }
 
     /**
      * Get every active session
@@ -59,7 +66,7 @@ class SessionManager {
      */
     public function makeSession(Player $player) : void {
         if($this->hasSession($player)) throw new SessionException("A session for the given player already exists");
-        $this->sessions[spl_object_hash($player)] = new Session($player);
+        $this->sessions[spl_object_hash($player)] = new Session($player, $this->plugin->getDefaultCooldown());
     }
 
     /**

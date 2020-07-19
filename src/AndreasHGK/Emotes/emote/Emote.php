@@ -4,45 +4,47 @@ declare(strict_types=1);
 
 namespace AndreasHGK\Emotes\emote;
 
-use AndreasHGK\Emotes\event\PlayerEmoteEvent;
-use AndreasHGK\Emotes\session\SessionManager;
+use AndreasHGK\Emotes\event\EmoteEvent;
+use pocketmine\entity\Human;
 use pocketmine\network\mcpe\protocol\EmotePacket;
 use pocketmine\Player;
 
 class Emote {
 
+    public const FLAG_SERVER = 1 << 0;
+
     /**
      * Create an Emote object from a packet
      *
-     * @param Player $sender
+     * @param Human $sender
      * @param EmotePacket $emotePacket
      * @return static
      */
-    public static function fromPacket(Player $sender, EmotePacket $emotePacket) : self {
+    public static function fromPacket(Human $sender, EmotePacket $emotePacket) : self {
         return new self($sender, $emotePacket->getEmoteId(), $emotePacket->getFlags());
     }
 
     /**
      * Create an Emote object
      *
-     * @param Player $player the player that is performing the emote
+     * @param Human $entity the player that is performing the emote
      * @param string $emoteId the ID of the emote
      * @param int $flags modify the behaviour of the emote
      * @return static
      */
-    public static function create(Player $player, string $emoteId, int $flags = 0) : self {
-        return new self($player, $emoteId, $flags);
+    public static function create(Human $entity, string $emoteId, int $flags = 0) : self {
+        return new self($entity, $emoteId, $flags);
     }
 
-    /** @var Player */
-    private $player;
+    /** @var Human */
+    private $entity;
     /** @var string */
     private $emoteId;
     /** @var int */
     private $flags;
 
-    public function __construct(Player $player, string $emoteId, int $flags = 0) {
-        $this->player = $player;
+    public function __construct(Human $entity, string $emoteId, int $flags = 0) {
+        $this->entity = $entity;
         $this->emoteId = $emoteId;
         $this->flags = $flags;
     }
@@ -63,16 +65,16 @@ class Emote {
      * @return int
      */
     public function getEntityId() : int {
-        return $this->player->getId();
+        return $this->entity->getId();
     }
 
     /**
      * Get the sender of the Emote
      *
-     * @return Player
+     * @return Human
      */
-    public function getPlayer() : Player {
-        return $this->player;
+    public function getEntity() : Human {
+        return $this->entity;
     }
 
     /**
@@ -114,18 +116,6 @@ class Emote {
     }
 
     /**
-     * Check if the sender is able to use the emote
-     * (this checks if they have it set in their emote list)
-     *
-     * @return bool
-     */
-    public function canUse() : bool {
-        $sessionManager = SessionManager::getInstance();
-        if(!$sessionManager->hasSession($this->getPlayer())) return true; //if for some reason the session is not there
-        return SessionManager::getInstance()->getSession($this->getPlayer())->hasEmote($this->getEmoteId());
-    }
-
-    /**
      * Broadcast the packet to a list of players, or in the world of a player
      *
      * @param Player[] $players the players you want to broadcast the packet to
@@ -133,10 +123,10 @@ class Emote {
      */
     public function broadcast(array $players = [], bool $silent = false) : void {
         if(empty($players)) {
-            $players = $this->player->getLevel()->getPlayers();
+            $players = $this->entity->getViewers();
         }
 
-        $event = new PlayerEmoteEvent($this);
+        $event = new EmoteEvent($this);
         if(!$silent) $event->call();
         if($event->isCancelled()) return;
         $emote = $event->getEmote();
