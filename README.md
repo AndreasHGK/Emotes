@@ -31,6 +31,8 @@ The plugin also has an API to make it easy for developers to use emotes in plugi
 Whenever a player performs an emote, an event will be called for this emote.
 This event is `AndreasHGK\Emotes\event\EmoteEvent`.
 You are able to cancel the event and also change the flags and emote ID.
+In the event you can also control who sees the emote, using `$event->setViewers([])`.
+This function accept an array of players as first argument.
 
 ### Sending emotes
 With this plugin, you can also easily make a player (or any entity that extends the Human class, so even human slappers) perform an emote!

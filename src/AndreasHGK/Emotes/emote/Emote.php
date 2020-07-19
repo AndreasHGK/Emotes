@@ -118,22 +118,22 @@ class Emote {
     /**
      * Broadcast the packet to a list of players, or in the world of a player
      *
-     * @param Player[] $players the players you want to broadcast the packet to
+     * @param Player[] $viewers the players you want to broadcast the packet to
      * @param bool $silent whether or not to call an event for the emote
      */
-    public function broadcast(array $players = [], bool $silent = false) : void {
-        if(empty($players)) {
-            $players = $this->entity->getViewers();
+    public function broadcast(array $viewers = [], bool $silent = false) : void {
+        if(empty($viewers)) {
+            $viewers = $this->entity->getViewers();
         }
 
-        $event = new EmoteEvent($this);
+        $event = new EmoteEvent($this, $viewers);
         if(!$silent) $event->call();
         if($event->isCancelled()) return;
         $emote = $event->getEmote();
 
         $packet = $emote->asPacket();
-        foreach($players as $player) {
-            $player->sendDataPacket($packet);
+        foreach($event->getViewers() as $player) {
+            $player->getNetworkSession()->sendDataPacket($packet);
         }
     }
 
