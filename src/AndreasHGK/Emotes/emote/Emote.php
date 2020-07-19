@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AndreasHGK\Emotes\emote;
 
-use AndreasHGK\Emotes\event\PlayerEmoteEvent;
-use AndreasHGK\Emotes\session\SessionManager;
+use AndreasHGK\Emotes\event\EmoteEvent;
 use pocketmine\entity\Human;
 use pocketmine\network\mcpe\protocol\EmotePacket;
 use pocketmine\player\Player;
 
 class Emote {
+
+    public const FLAG_SERVER = 1 << 0;
 
     /**
      * Create an Emote object from a packet
@@ -125,7 +126,7 @@ class Emote {
             $players = $this->entity->getViewers();
         }
 
-        $event = new PlayerEmoteEvent($this);
+        $event = new EmoteEvent($this);
         if(!$silent) $event->call();
         if($event->isCancelled()) return;
         $emote = $event->getEmote();

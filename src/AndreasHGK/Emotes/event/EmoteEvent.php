@@ -9,7 +9,7 @@ use pocketmine\event\Cancellable;
 use pocketmine\event\CancellableTrait;
 use pocketmine\event\Event;
 
-class PlayerEmoteEvent extends Event implements Cancellable {
+class EmoteEvent extends Event implements Cancellable {
 
     use CancellableTrait;
 
