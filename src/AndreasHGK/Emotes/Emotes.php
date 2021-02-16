@@ -7,8 +7,10 @@ namespace AndreasHGK\Emotes;
 use AndreasHGK\Emotes\listener\EmoteListener;
 use AndreasHGK\Emotes\listener\SessionListener;
 use AndreasHGK\Emotes\session\SessionManager;
+use pocketmine\permission\DefaultPermissions;
 use pocketmine\permission\Permission;
 use pocketmine\permission\PermissionManager;
+use pocketmine\permission\PermissionParser;
 use pocketmine\plugin\PluginBase;
 use pocketmine\plugin\PluginException;
 
@@ -90,8 +92,8 @@ class Emotes extends PluginBase {
     public function onLoad() {
         self::$instance = $this;
 
-        $permissionManager = PermissionManager::getInstance();
-        $permissionManager->addPermission(new Permission("emotes.perform", "the permission required to perform emotes", Permission::DEFAULT_TRUE));
+        $everyoneRoot = PermissionManager::getInstance()->getPermission(DefaultPermissions::ROOT_USER);
+        DefaultPermissions::registerPermission(new Permission("emotes.perform", "the permission required to perform emotes"), [$everyoneRoot]);
 
         if(!$this->validateConfig()) {
             $this->getLogger()->notice("The plugin configuration file has one or more missing values. The plugin will use the default values for the missing options.");
