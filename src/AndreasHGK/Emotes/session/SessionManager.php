@@ -16,7 +16,7 @@ class SessionManager {
      * @return $this
      */
     public static function getInstance() : self {
-        if(!isset(self::$instance)) self::$instance = new self;
+        if(!isset(self::$instance)) self::$instance = SessionManager::getInstance();
         return self::$instance;
     }
 
