@@ -1,5 +1,6 @@
 # Get the amount of time that players have to wait between emotes in seconds (can be a decimal number)
 cooldown-time: 2
+
 # The message that will be sent to the player when the emote cooldown is active and they try to perform another emote (change to "" for no message)
 # Use the %f variable to add in the remaining cooldown time
 # If you want to round this variable to 2 decimals, use %.2f
