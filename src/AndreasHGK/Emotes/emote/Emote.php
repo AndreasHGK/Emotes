@@ -21,7 +21,7 @@ class Emote {
      * @return static
      */
     public static function fromPacket(Human $sender, EmotePacket $emotePacket) : self {
-        return new self($sender, $emotePacket->getEmoteId(), $emotePacket->getFlags());
+        return new Emote($sender, $emotePacket->getEmoteId(), $emotePacket->getFlags());
     }
 
     /**
@@ -33,7 +33,7 @@ class Emote {
      * @return static
      */
     public static function create(Human $entity, string $emoteId, int $flags = 0) : self {
-        return new self($entity, $emoteId, $flags);
+        return new Emote($entity, $emoteId, $flags);
     }
 
     /** @var Human */
@@ -133,7 +133,7 @@ class Emote {
 
         $packet = $emote->asPacket();
         foreach($event->getViewers() as $player) {
-            $player->getNetworkSession()->sendDataPacket($packet);
+            $player->sendDataPacket($packet);
         }
     }
 
