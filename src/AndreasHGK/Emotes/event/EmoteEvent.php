@@ -7,7 +7,7 @@ namespace AndreasHGK\Emotes\event;
 use AndreasHGK\Emotes\emote\Emote;
 use pocketmine\event\Cancellable;
 use pocketmine\event\Event;
-use pocketmine\player\Player;
+use pocketmine\Player;
 
 class EmoteEvent extends Event implements Cancellable {
 
