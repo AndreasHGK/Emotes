@@ -89,7 +89,7 @@ class Emotes extends PluginBase {
         return true;
     }
 
-    public function onLoad() {
+    public function onLoad() : void {
         self::$instance = $this;
 
         $everyoneRoot = PermissionManager::getInstance()->getPermission(DefaultPermissions::ROOT_USER);
@@ -104,7 +104,7 @@ class Emotes extends PluginBase {
         $this->permissionMessage = $config->get("permission-message", "§cYou do not have permission to perform emotes.");
     }
 
-    public function onEnable() {
+    public function onEnable() : void {
         $this->getServer()->getPluginManager()->registerEvents(new SessionListener(), $this);
         $this->getServer()->getPluginManager()->registerEvents(new EmoteListener(), $this);
     }
